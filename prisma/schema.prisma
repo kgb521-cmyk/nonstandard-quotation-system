@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+enum UserRole {
+  sales
+  engineer
+  admin
+}
+
+enum EquipmentCategory {
+  temperature
+  flow
+  pressure
+  fluid
+  aging
+}
+
+enum ProjectStatus {
+  draft
+  matched
+  quoted
+}
+
+enum DocumentType {
+  summary
+  proposal
+}
+
+model User {
+  id           String               @id @default(cuid())
+  name         String
+  email        String               @unique
+  passwordHash String
+  role         UserRole
+  projects     QuotationProject[]   @relation("ProjectOwner")
+  adjustments  QuotationAdjustment[]
+  documents    QuotationDocument[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+}
+
+model Customer {
+  id           String             @id @default(cuid())
+  name         String
+  company      String
+  contactName  String
+  contactPhone String
+  industry     String
+  region       String
+  address      String
+  projects     QuotationProject[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+}
+
+model QuotationProject {
+  id                  String                @id @default(cuid())
+  projectCode         String                @unique
+  title               String
+  customerId          String
+  ownerUserId         String
+  equipmentCategory   EquipmentCategory
+  applicationScenario String
+  status              ProjectStatus         @default(draft)
+  currency            String                @default("CNY")
+  taxRate             Float
+  shippingFee         Float
+  commissioningFee    Float
+  paymentTerms        String
+  deliveryTerms       String
+  warrantyTerms       String
+  notes               String
+  customer            Customer              @relation(fields: [customerId], references: [id])
+  owner               User                  @relation("ProjectOwner", fields: [ownerUserId], references: [id])
+  inputs              QuotationInput?
+  modules             MatchedModule[]
+  adjustments         QuotationAdjustment[]
+  documents           QuotationDocument[]
+  auditLogs           RuleAuditLog[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+}
+
+model QuotationInput {
+  id         String             @id @default(cuid())
+  projectId   String             @unique
+  inputJson   Json
+  project     QuotationProject   @relation(fields: [projectId], references: [id])
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+model MatchedModule {
+  id             String             @id @default(cuid())
+  projectId      String
+  moduleCode     String
+  moduleName     String
+  moduleCategory String
+  specSummary    String
+  quantity       Float
+  unit           String
+  unitPrice      Float
+  lineTotal      Float
+  sourceRuleCode String
+  selectionMode  String
+  isOverridden   Boolean            @default(false)
+  overrideReason String
+  sortOrder      Int
+  project        QuotationProject   @relation(fields: [projectId], references: [id])
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+}
+
+model QuotationAdjustment {
+  id             String             @id @default(cuid())
+  projectId      String
+  moduleId       String?
+  adjustmentType String
+  beforeValue    String
+  afterValue     String
+  reason         String
+  operatorUserId String
+  project        QuotationProject   @relation(fields: [projectId], references: [id])
+  operator       User               @relation(fields: [operatorUserId], references: [id])
+  createdAt      DateTime           @default(now())
+}
+
+model QuotationDocument {
+  id              String             @id @default(cuid())
+  projectId       String
+  documentType    DocumentType
+  title           String
+  htmlContent     String
+  version         Int                @default(1)
+  createdByUserId String
+  project         QuotationProject   @relation(fields: [projectId], references: [id])
+  createdBy       User               @relation(fields: [createdByUserId], references: [id])
+  createdAt       DateTime           @default(now())
+}
+
+model RuleAuditLog {
+  id         String             @id @default(cuid())
+  projectId  String
+  ruleCode   String
+  matched    Boolean
+  message    String
+  payloadJson Json
+  project    QuotationProject   @relation(fields: [projectId], references: [id])
+  createdAt  DateTime           @default(now())
+}
