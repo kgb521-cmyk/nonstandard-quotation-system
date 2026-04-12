@@ -29,7 +29,9 @@ describe("document generators", () => {
   it("renders summary and proposal HTML with commercial terms", () => {
     expect(generateSummaryHtml(quotationView)).toContain("报价单");
     expect(generateSummaryHtml(quotationView)).toContain("预付款 50%");
+    expect(generateSummaryHtml(quotationView)).toContain("@media print");
     expect(generateProposalHtml(quotationView)).toContain("方案书");
     expect(generateProposalHtml(quotationView)).toContain("交付范围");
+    expect(generateProposalHtml(quotationView)).toContain("@media print");
   });
 });

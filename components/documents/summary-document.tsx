@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { PrintToolbar } from "./print-toolbar";
 import { PriceSummary } from "../quotation/price-summary";
 
 type SummaryView = {
@@ -22,6 +23,20 @@ type SummaryView = {
 export function SummaryDocument({ view }: { view: SummaryView }) {
   return (
     <main style={{ background: "white", minHeight: "100vh", padding: 40 }}>
+      <style>{`
+        @media print {
+          .print-toolbar {
+            display: none !important;
+          }
+          body {
+            background: white;
+          }
+          main {
+            padding: 0 !important;
+          }
+        }
+      `}</style>
+      <PrintToolbar />
       <h1>非标检测设备报价单</h1>
       <h2>{view.title}</h2>
       <p>项目编号：{view.projectCode}</p>

@@ -25,7 +25,18 @@ export function generateProposalHtml(view: ProposalView) {
 
   return `
     <html lang="zh-CN">
+      <head>
+        <style>
+          body { font-family: "Noto Sans SC", sans-serif; padding: 32px; color: #1f1c18; line-height: 1.6; }
+          section { margin-top: 24px; page-break-inside: avoid; }
+          @media print {
+            body { padding: 0; }
+            .print-toolbar { display: none !important; }
+          }
+        </style>
+      </head>
       <body>
+        <div class="print-toolbar">建议使用浏览器打印为 PDF</div>
         <h1>非标检测设备报价方案书</h1>
         <h2>${view.title}</h2>
         <p>客户：${view.customerName}</p>

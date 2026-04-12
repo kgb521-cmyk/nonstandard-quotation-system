@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { PrintToolbar } from "./print-toolbar";
+
 type ProposalView = {
   projectCode: string;
   title: string;
@@ -20,6 +22,20 @@ type ProposalView = {
 export function ProposalDocument({ view }: { view: ProposalView }) {
   return (
     <main style={{ background: "white", minHeight: "100vh", padding: 40 }}>
+      <style>{`
+        @media print {
+          .print-toolbar {
+            display: none !important;
+          }
+          body {
+            background: white;
+          }
+          main {
+            padding: 0 !important;
+          }
+        }
+      `}</style>
+      <PrintToolbar />
       <h1>非标检测设备报价方案书</h1>
       <h2>{view.title}</h2>
       <p>客户：{view.customerName}</p>

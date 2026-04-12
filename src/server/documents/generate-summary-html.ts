@@ -25,7 +25,19 @@ export function generateSummaryHtml(view: SummaryView) {
 
   return `
     <html lang="zh-CN">
+      <head>
+        <style>
+          body { font-family: "Noto Sans SC", sans-serif; padding: 32px; color: #1f1c18; }
+          table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+          th, td { border-bottom: 1px solid #d8c8b2; padding: 10px 8px; text-align: left; }
+          @media print {
+            body { padding: 0; }
+            .print-toolbar { display: none !important; }
+          }
+        </style>
+      </head>
       <body>
+        <div class="print-toolbar">建议使用浏览器打印为 PDF</div>
         <h1>非标检测设备报价单</h1>
         <p>项目编号：${view.projectCode}</p>
         <p>客户名称：${view.customerName}</p>

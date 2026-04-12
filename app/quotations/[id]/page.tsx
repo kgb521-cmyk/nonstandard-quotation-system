@@ -36,7 +36,8 @@ export default async function QuotationDetailPage({
     }))
   });
 
-  const modules: ModuleLine[] = project.modules.map((module) => ({
+  const modules: Array<ModuleLine & { id: string }> = project.modules.map((module) => ({
+    id: module.id,
     moduleCode: module.moduleCode,
     moduleName: module.moduleName,
     moduleCategory: module.moduleCategory,
@@ -54,8 +55,10 @@ export default async function QuotationDetailPage({
   return (
     <ProjectWizard
       project={{
+        id: project.id,
         title: project.title,
         projectCode: project.projectCode,
+        operatorUserId: project.ownerUserId,
         equipmentCategory: project.equipmentCategory,
         applicationScenario: project.applicationScenario,
         customerName: project.customer.company,
