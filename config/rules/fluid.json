@@ -1,0 +1,46 @@
+[
+  {
+    "code": "FLUID-BASE",
+    "name": "流体基础模块",
+    "equipmentCategory": "fluid",
+    "priority": 10,
+    "conditions": [],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "FLUID-PUMP-BASE",
+        "moduleName": "标准流体泵组",
+        "moduleCategory": "fluid",
+        "specSummary": "基础流体循环系统",
+        "quantity": 1,
+        "unit": "套",
+        "unitPrice": 14000,
+        "calculationNote": "流体设备基础配置"
+      }
+    ],
+    "description": "流体设备默认基础模块"
+  },
+  {
+    "code": "FLUID-CORROSIVE",
+    "name": "耐腐蚀材质升级",
+    "equipmentCategory": "fluid",
+    "priority": 50,
+    "conditions": [
+      { "field": "mediumType", "operator": "includes", "value": "腐蚀" }
+    ],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "FLUID-SS-UPGRADE",
+        "moduleName": "不锈钢耐腐蚀升级包",
+        "moduleCategory": "material",
+        "specSummary": "泵阀及管路材质升级",
+        "quantity": 1,
+        "unit": "套",
+        "unitPrice": 7000,
+        "calculationNote": "介质含腐蚀性描述时自动追加"
+      }
+    ],
+    "description": "腐蚀性介质触发材质升级"
+  }
+]

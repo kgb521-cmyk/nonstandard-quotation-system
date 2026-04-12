@@ -1,0 +1,46 @@
+[
+  {
+    "code": "FLOW-BASE",
+    "name": "流量基础模块",
+    "equipmentCategory": "flow",
+    "priority": 10,
+    "conditions": [],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "FLOW-METER-BASE",
+        "moduleName": "标准流量计模块",
+        "moduleCategory": "flow",
+        "specSummary": "适配常规流量测试",
+        "quantity": 1,
+        "unit": "套",
+        "unitPrice": 9000,
+        "calculationNote": "流量设备基础配置"
+      }
+    ],
+    "description": "流量设备默认基础模块"
+  },
+  {
+    "code": "FLOW-HIGH-ACCURACY",
+    "name": "高精度流量传感器",
+    "equipmentCategory": "flow",
+    "priority": 40,
+    "conditions": [
+      { "field": "accuracyLevel", "operator": "eq", "value": "high" }
+    ],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "FLOW-SENSOR-HIGH",
+        "moduleName": "高精度流量传感器",
+        "moduleCategory": "sensor",
+        "specSummary": "适配高精度校准工况",
+        "quantity": 1,
+        "unit": "支",
+        "unitPrice": 6500,
+        "calculationNote": "高精度要求自动追加"
+      }
+    ],
+    "description": "高精度需求追加高精度传感器"
+  }
+]

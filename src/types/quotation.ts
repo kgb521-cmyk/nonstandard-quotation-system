@@ -3,6 +3,7 @@ export type EquipmentCategory = "temperature" | "flow" | "pressure" | "fluid" | 
 export interface QuotationInputPayload {
   minTemperature?: number;
   maxTemperature?: number;
+  pressureRangeMax?: number;
   pressureRange?: { min: number; max: number };
   flowRange?: { min: number; max: number };
   mediumType?: string;
@@ -20,6 +21,7 @@ export interface ModuleLine {
   quantity: number;
   unit?: string;
   unitPrice: number;
+  lineTotal?: number;
   sourceRuleCode?: string;
   calculationNote?: string;
   selectionMode?: "auto" | "manual";

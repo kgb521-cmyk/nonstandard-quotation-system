@@ -1,0 +1,46 @@
+[
+  {
+    "code": "PRESSURE-BASE",
+    "name": "压力基础模块",
+    "equipmentCategory": "pressure",
+    "priority": 10,
+    "conditions": [],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "PRESSURE-PIPE-BASE",
+        "moduleName": "标准压力管路模块",
+        "moduleCategory": "pressure",
+        "specSummary": "基础压力测试管路",
+        "quantity": 1,
+        "unit": "套",
+        "unitPrice": 15000,
+        "calculationNote": "压力设备基础配置"
+      }
+    ],
+    "description": "压力设备默认基础模块"
+  },
+  {
+    "code": "PRESSURE-HIGH-SAFETY",
+    "name": "高压安全防护模块",
+    "equipmentCategory": "pressure",
+    "priority": 40,
+    "conditions": [
+      { "field": "pressureRangeMax", "operator": "gt", "value": 10 }
+    ],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "PRESSURE-SAFETY-HIGH",
+        "moduleName": "高压安全防护模块",
+        "moduleCategory": "safety",
+        "specSummary": "高压场景防护机柜",
+        "quantity": 1,
+        "unit": "套",
+        "unitPrice": 11000,
+        "calculationNote": "压力上限大于 10MPa 自动追加"
+      }
+    ],
+    "description": "高压场景追加安全防护"
+  }
+]

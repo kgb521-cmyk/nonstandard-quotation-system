@@ -1,0 +1,47 @@
+[
+  {
+    "code": "AGING-BASE",
+    "name": "老化测试基础模块",
+    "equipmentCategory": "aging",
+    "priority": 10,
+    "conditions": [],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "AGING-RACK",
+        "moduleName": "老化测试工装机架",
+        "moduleCategory": "aging",
+        "specSummary": "老化测试基础工装",
+        "quantity": 1,
+        "unit": "套",
+        "unitPrice": 16000,
+        "calculationNote": "老化测试基础配置"
+      }
+    ],
+    "description": "老化设备默认基础模块"
+  },
+  {
+    "code": "AGING-CABINET-RULE",
+    "name": "老化控制柜联动",
+    "equipmentCategory": "aging",
+    "priority": 40,
+    "conditions": [
+      { "field": "workstationCount", "operator": "gt", "value": 0 }
+    ],
+    "actions": [
+      {
+        "type": "addModule",
+        "moduleCode": "AGING-CABINET",
+        "moduleName": "老化测试控制柜",
+        "moduleCategory": "control",
+        "specSummary": "按工位数量配置控制柜",
+        "quantity": 1,
+        "quantityFormula": "ceilWorkstationsDiv8",
+        "unit": "套",
+        "unitPrice": 8500,
+        "calculationNote": "按 ceil(工位数 / 8) 自动计算"
+      }
+    ],
+    "description": "工位数量驱动控制柜数量"
+  }
+]

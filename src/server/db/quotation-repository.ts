@@ -13,3 +13,24 @@ export async function listQuotationProjects() {
     }
   });
 }
+
+export async function getQuotationProjectById(projectId: string) {
+  return prisma.quotationProject.findUnique({
+    where: { id: projectId },
+    include: {
+      customer: true,
+      owner: true,
+      modules: {
+        orderBy: {
+          sortOrder: "asc"
+        }
+      },
+      inputs: true,
+      auditLogs: {
+        orderBy: {
+          createdAt: "asc"
+        }
+      }
+    }
+  });
+}
