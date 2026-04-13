@@ -14,6 +14,14 @@ export async function listQuotationProjects() {
   });
 }
 
+export async function listCustomers() {
+  return prisma.customer.findMany({
+    orderBy: {
+      updatedAt: "desc"
+    }
+  });
+}
+
 export async function getQuotationProjectById(projectId: string) {
   return prisma.quotationProject.findUnique({
     where: { id: projectId },

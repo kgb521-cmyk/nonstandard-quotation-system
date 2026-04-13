@@ -21,6 +21,7 @@ export default async function DashboardPage() {
         <p>覆盖温控、流量、压力、流体、老化测试设备的模块匹配、报价计算与方案输出。</p>
         <div style={{ display: "flex", gap: 12 }}>
           <Link href="/login">切换角色</Link>
+          <Link href="/customers">客户管理</Link>
           <Link href="/quotations/new">新建报价项目</Link>
         </div>
       </Card>
