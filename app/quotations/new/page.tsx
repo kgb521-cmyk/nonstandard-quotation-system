@@ -1,7 +1,5 @@
-import { redirect } from "next/navigation";
-import { listQuotationProjects } from "../../../src/server/db/quotation-repository";
+import { NewQuotationForm } from "../../../components/quotation/new-quotation-form";
 
-export default async function NewQuotationPage() {
-  const projects = await listQuotationProjects();
-  redirect(`/quotations/${projects[0]?.id ?? ""}`);
+export default function NewQuotationPage() {
+  return <NewQuotationForm />;
 }
