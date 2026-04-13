@@ -22,6 +22,7 @@ export default async function DashboardPage() {
         <div style={{ display: "flex", gap: 12 }}>
           <Link href="/login">切换角色</Link>
           <Link href="/customers">客户管理</Link>
+          <Link href="/rules">规则查看</Link>
           <Link href="/quotations/new">新建报价项目</Link>
         </div>
       </Card>
