@@ -69,6 +69,7 @@ export default async function QuotationDetailPage({
       modules={modules}
       input={project.inputs.inputJson as unknown as QuotationInputPayload}
       totals={view.totals}
+      taxRate={project.taxRate}
     />
   );
 }

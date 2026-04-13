@@ -1,5 +1,7 @@
 "use client";
 
+import * as React from "react";
+
 import { useRouter } from "next/navigation";
 import { startTransition, useState } from "react";
 import type { ModuleLine } from "../../src/types/quotation";
@@ -10,11 +12,13 @@ type DraftState = Record<string, { quantity: string; unitPrice: string; reason: 
 export function ManualAdjustmentPanel({
   projectId,
   operatorUserId,
-  modules
+  modules,
+  onModuleSaved
 }: {
   projectId: string;
   operatorUserId: string;
   modules: Array<ModuleLine & { id: string }>;
+  onModuleSaved?: (module: ModuleLine & { id: string }) => void;
 }) {
   const router = useRouter();
   const [savingId, setSavingId] = useState<string | null>(null);
@@ -67,6 +71,11 @@ export function ManualAdjustmentPanel({
       return;
     }
 
+    const payload = (await response.json()) as {
+      module: ModuleLine & { id: string; selectionMode: "manual"; isOverridden: true; overrideReason?: string };
+    };
+
+    onModuleSaved?.(payload.module);
     setMessage("人工校正已保存。");
     setSavingId(null);
     startTransition(() => {

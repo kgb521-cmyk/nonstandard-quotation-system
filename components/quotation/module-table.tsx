@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import type { ModuleLine } from "../../src/types/quotation";
 
 export function ModuleTable({ modules }: { modules: ModuleLine[] }) {
@@ -9,6 +11,7 @@ export function ModuleTable({ modules }: { modules: ModuleLine[] }) {
           <th align="left">模块名称</th>
           <th align="left">数量</th>
           <th align="left">单价</th>
+          <th align="left">金额</th>
           <th align="left">来源规则</th>
           <th align="left">人工校正</th>
         </tr>
@@ -20,6 +23,7 @@ export function ModuleTable({ modules }: { modules: ModuleLine[] }) {
             <td>{module.moduleName}</td>
             <td>{module.quantity}</td>
             <td>{module.unitPrice}</td>
+            <td>{Number((module.lineTotal ?? module.quantity * module.unitPrice).toFixed(2))}</td>
             <td>{module.sourceRuleCode ?? "人工新增"}</td>
             <td>{module.isOverridden ? "已校正" : "自动"}</td>
           </tr>
